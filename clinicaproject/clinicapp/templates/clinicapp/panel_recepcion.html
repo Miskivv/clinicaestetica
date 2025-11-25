@@ -1,0 +1,66 @@
+{% extends 'clinicapp/base.html' %}
+{% block title %}Panel Recepción{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Panel Recepción</h2>
+
+  <div class="row">
+    <div class="col-md-9">
+      <div class="card shadow p-3">
+        <h5>Citas Próximas</h5>
+        <table class="table table-striped mt-3">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Servicio</th>
+              <th>Especialista</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Estado</th> <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in upcoming %}
+              <tr>
+                <td>
+                  <strong>{{ c.patient.first_name }} {{ c.patient.last_name }}</strong><br>
+                  <small class="text-muted">{{ c.patient.username }}</small>
+                </td>
+                <td>{{ c.service.name }}</td>
+                <td>{{ c.specialist.full_name }}</td>
+                <td>{{ c.date }}</td>
+                <td>{{ c.time }}</td>
+                <td>
+                  <span class="badge {{ c.get_status_badge_class }}">{{ c.get_status_display }}</span>
+                </td>
+                <td>
+                  <a href="{% url 'confirm_appointment' c.id %}" class="btn btn-sm btn-success">Confirmar</a>
+                  <a href="{% url 'modify_appointment' c.id %}" class="btn btn-sm btn-outline-secondary">Modificar</a>
+                  <a href="{% url 'cobrar_cita' c.id %}" class="btn btn-sm btn-primary">Cobrar</a> 
+                  <a href="{% url 'cancel_appointment' c.id %}" class="btn btn-sm btn-danger">Cancelar</a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="7" class="text-center">No hay citas próximas.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow p-3">
+        <h6>Filtros</h6>
+        <form method="get">
+          <div class="mb-2">
+            <label class="form-label">Fecha</label>
+            <input type="date" name="date" class="form-control" value="{{ request.GET.date }}">
+          </div>
+          <button class="btn btn-primary w-100">Filtrar</button>
+          <a href="{% url 'panel_recepcion' %}" class="btn btn-outline-secondary w-100 mt-2">Limpiar Filtro</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

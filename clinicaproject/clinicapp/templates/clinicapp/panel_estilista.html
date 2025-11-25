@@ -1,0 +1,41 @@
+{% extends 'clinicapp/base.html' %}
+{% block title %}Panel Estilista{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">
+    Mi Agenda de Hoy 
+    <small class="text-muted">({{ today|date:"d/m/Y" }})</small>
+  </h2>
+  
+  {% if bookings %}
+    <div class="card shadow p-3">
+      <p class="lead">Bienvenido, <strong>{{ specialist }}</strong>. Estas son tus citas.</p>
+      <ul class="list-group list-group-flush">
+        {% for b in bookings %}
+          <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+            
+            <div>
+              <h5 class="mb-1">
+                <span class="badge bg-secondary me-2">{{ b.time|date:"H:i" }}</span> 
+                <strong>{{ b.service.name }}</strong>
+              </h5>
+              <p class="mb-1">Cliente: {{ b.patient.first_name }} {{ b.patient.last_name }}</p>
+              <small class="text-muted">ID Cita: #{{ b.id }}</small>
+            </div>
+
+            <div class="text-end">
+              <span class="badge {{ b.get_status_badge_class }} mb-2">{{ b.get_status_display }}</span>
+              <div class="mt-2">
+                <a href="{% url 'mark_attended' b.id %}" class="btn btn-sm btn-success">Finalizar</a>
+                <a href="{% url 'cancel_appointment' b.id %}" class="btn btn-sm btn-danger">Cancelar</a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <div class="alert alert-info shadow">No tienes citas programadas para hoy.</div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'clinicapp/base.html' %}
+{% block title %}Reserva Confirmada{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow p-5 text-center">
+    <h3>¡Reserva Exitosa!</h3>
+    <p class="mb-4">Hemos registrado tu cita. Recibirás una notificación con los detalles.</p>
+    <a href="{% url 'my_appointments' %}" class="btn btn-primary">Ver Mis Reservas</a>
+  </div>
+</div>
+{% endblock %}

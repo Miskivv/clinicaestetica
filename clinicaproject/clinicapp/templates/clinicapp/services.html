@@ -1,0 +1,40 @@
+{% extends 'clinicapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Nuestros Servicios</h1>
+
+    <div class="row">
+
+        {% for service in services %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm p-3">
+                <div class="card-body text-center">
+                    
+                    <!-- Nombre del servicio -->
+                    <h5 class="card-title">{{ service.name }}</h5>
+
+                    <!-- Precio -->
+                    <p class="text-muted mb-2">
+                        Precio: ${{ service.price }}
+                    </p>
+
+                    <!-- Descripción si existe -->
+                    {% if service.description %}
+                    <p class="card-text">{{ service.description }}</p>
+                    {% endif %}
+
+                    <!-- Botón para reservar -->
+                    <a href="{% url 'reserve_appointment' %}?service_id={{ service.id }}" 
+                       class="btn btn-success w-100">
+                        Reservar Cita
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

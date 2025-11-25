@@ -1,0 +1,23 @@
+{% extends 'clinicapp/base.html' %}
+{% block title %}Conoce al Equipo{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Equipo Experto</h2>
+  <div class="row">
+    {% for s in specialists %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          {% if s.photo %}<img src="{{ s.photo.url }}" class="card-img-top" alt="{{ s.full_name }}" style="height:220px; object-fit:cover;">{% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ s.full_name }}</h5>
+            <p class="text-muted">{{ s.specialty }}</p>
+            <p>{{ s.bio|default:"Profesional con amplia experiencia." }}</p>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center">No hay especialistas registrados.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

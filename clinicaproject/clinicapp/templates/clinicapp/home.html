@@ -1,0 +1,49 @@
+{% extends 'clinicapp/base.html' %}
+{% load static %}
+
+{% block title %}Clínica Estética - Inicio{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow p-5 text-center">
+        <h1 class="display-5 text-primary">Tu Belleza es Nuestra Pasión</h1>
+        <p class="lead mt-3">
+            Ofrecemos tratamientos estéticos de última generación con profesionales certificados.
+        </p>
+
+        <hr>
+
+        <a href="{% url 'reserve_appointment' %}" class="btn btn-primary btn-lg mt-3">
+            Reservar Ahora
+        </a>
+    </div>
+
+    <div class="row text-center mt-5">
+
+        <div class="col-md-4 mb-4">
+            <h4>Servicios de Calidad</h4>
+            <p>Descubre una amplia gama de tratamientos faciales y corporales adaptados a tus necesidades.</p>
+            <a href="{% url 'services' %}" class="btn btn-outline-primary">Ver Servicios</a>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <h4>Equipo Experto</h4>
+            <p>Contamos con especialistas altamente capacitados para garantizar tu seguridad y los mejores resultados.</p>
+            {# NOTA: Asegúrate de que tienes una URL llamada 'conoce_equipo' en urls.py #}
+            <a href="{% url 'conoce_equipo' %}" class="btn btn-outline-primary">Conoce al Equipo</a>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <h4>Agenda tu Cita</h4>
+            <p>Sistema de reservas online fácil e intuitivo para que gestiones tu tiempo sin complicaciones.</p>
+            <a href="{% url 'reserve_appointment' %}" class="btn btn-outline-primary">Reservar</a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

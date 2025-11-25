@@ -1,0 +1,40 @@
+{% extends 'clinicapp/base.html' %}
+{% block title %}Reservar Cita{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-3 text-center">Reservar Cita</h2>
+  <div class="card p-4 shadow">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Servicio</label>
+        <select name="service" class="form-select" required>
+          <option value="">-- Seleccione --</option>
+          {% for service in services %}<option value="{{ service.id }}">{{ service.name }}</option>{% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Especialista</label>
+        <select name="specialist" class="form-select" required>
+          <option value="">-- Seleccione --</option>
+          {% for s in specialists %}<option value="{{ s.id }}">{{ s.full_name }}</option>{% endfor %}
+        </select>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Fecha</label>
+          <input type="date" name="date" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Hora</label>
+          <input type="time" name="time" class="form-control" required>
+        </div>
+      </div>
+
+      <button class="btn btn-primary w-100">Confirmar Reserva</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

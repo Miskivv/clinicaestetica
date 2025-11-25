@@ -1,0 +1,50 @@
+{% extends "clinicapp/base.html" %}
+{% block title %}Cargos{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Listado de Cargos</h2>
+
+    {% if charges %}
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Monto</th>
+                    <th>Producto</th>
+                    <th>Reserva</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for charge in charges %}
+                <tr>
+                    <td>{{ charge.id }}</td>
+                    <td>{{ charge.user.username }}</td>
+                    <td>${{ charge.amount }}</td>
+                    <td>
+                        {% if charge.product %}
+                            {{ charge.product.name }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if charge.reservation %}
+                            {{ charge.reservation.id }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>{{ charge.created_at|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-warning">No hay cargos registrados.</div>
+    {% endif %}
+</div>
+{% endblock %}
+
